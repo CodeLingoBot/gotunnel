@@ -115,7 +115,7 @@ func (s *Server) Start() error {
 func (s *Server) Status() {
 }
 
-// create a tunnel server
+// NewServer: create a tunnel server
 func NewServer(listen, backend, secret string) (*Server, error) {
 	ln, err := newListener(listen)
 	if err != nil {

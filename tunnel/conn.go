@@ -64,7 +64,7 @@ type Tunnel struct {
 	werr  error      // write error
 }
 
-// can write concurrently
+// WritePacket: can write concurrently
 func (tun *Tunnel) WritePacket(linkid uint16, data []byte) (err error) {
 	defer mpool.Put(data)
 
@@ -95,7 +95,7 @@ func (tun *Tunnel) WritePacket(linkid uint16, data []byte) (err error) {
 	return
 }
 
-// can't read concurrently
+// ReadPacket: can't read concurrently
 func (tun *Tunnel) ReadPacket() (linkid uint16, data []byte, err error) {
 	var h header
 

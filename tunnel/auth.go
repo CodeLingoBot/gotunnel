@@ -78,13 +78,13 @@ func init() {
 	rand.Seed(time.Now().Unix())
 }
 
-// generate new token
+// GenToken: generate new token
 func (a *Taa) GenToken() {
 	a.token.challenge = uint64(rand.Int63())
 	a.token.timestamp = uint64(time.Now().UnixNano())
 }
 
-// generate cipher block
+// GenCipherBlock: generate cipher block
 func (a *Taa) GenCipherBlock(token *authToken) []byte {
 	if token == nil {
 		token = &a.token
@@ -107,7 +107,7 @@ func (a *Taa) CheckSignature(src []byte) bool {
 	return hmac.Equal(src[TaaTokenSize:], expectedMac)
 }
 
-// exchange cipher block
+// ExchangeCipherBlock: exchange cipher block
 func (a *Taa) ExchangeCipherBlock(src []byte) ([]byte, bool) {
 	if len(src) != TaaBlockSize {
 		return nil, false
@@ -126,7 +126,7 @@ func (a *Taa) ExchangeCipherBlock(src []byte) ([]byte, bool) {
 	return a.GenCipherBlock(&token), true
 }
 
-// verify cipher block
+// VerifyCipherBlock: verify cipher block
 func (a *Taa) VerifyCipherBlock(src []byte) bool {
 	if len(src) != TaaBlockSize {
 		return false
